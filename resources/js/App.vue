@@ -2,6 +2,8 @@
   <div>
     {{ data.message }}
     <HelloWorld />
+    <hr>
+    <router-view></router-view>
   </div>
 </template>
 
