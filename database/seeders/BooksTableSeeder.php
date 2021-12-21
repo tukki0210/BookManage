@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Book;
+use File;
 
 class BooksTableSeeder extends Seeder
 {
@@ -14,22 +16,17 @@ class BooksTableSeeder extends Seeder
      */
     public function run()
     {
-        $param = [
-            'title' => '坊ちゃん',
-            'price' => '500'
-        ];
-        DB::table('books')->insert($param);
-    
-        $param = [
-            'title' => 'こころ',
-            'price' => '600'
-        ];
-        DB::table('books')->insert($param);
+        Book::truncate();
 
-        $param = [
-           'title' => '三四郎',
-            'price' => '450'
-        ];
-        DB::table('books')->insert($param);
+        $json = File::get("storage/app/public/JSBooks.json");
+        $BookData = json_decode($json,true);
+        foreach($BookData['Items'] as $Item) {
+                $data = $Item['Item'];
+                Book::create([
+                "title" => $data['title'],
+                "price" => $data['itemPrice'],
+                "category" => 'JavaScript'
+            ]);
+        }
     }
 }

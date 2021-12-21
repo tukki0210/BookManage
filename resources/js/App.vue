@@ -1,15 +1,17 @@
 <template>
-  <div>
-    {{ data.message }}
-    <HelloWorld />
-    <hr>
-    <router-view></router-view>
+  <div class="layout">
+    <Sidebar />
+    <div>
+      <router-view></router-view>
+      {{ data.message }}
+    </div>
   </div>
 </template>
 
 <script>
 import { reactive } from "vue";
 import HelloWorld from "./components/HelloWorld";
+import Sidebar from "./components/Pages/Sidebar";
 
 import axios from "axios";
 
@@ -17,6 +19,7 @@ export default {
   name: "App",
   components: {
     HelloWorld,
+    Sidebar,
   },
   setup() {
     const data = reactive({
@@ -37,3 +40,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .layout {
+    display: flex;
+    flex-direction:row;
+    margin: 0;
+
+  }
+</style>

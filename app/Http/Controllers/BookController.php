@@ -15,7 +15,10 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        // eloquantをそのままreturnすると、jsonに変換してくれる。
+        // $books = [1,2,3,4,5];
+        // $books = array_map(function($n){
+        //     return ($n*$n);
+        // },$books);
         return $books;
     }
 

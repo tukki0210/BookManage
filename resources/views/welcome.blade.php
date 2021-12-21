@@ -11,3 +11,8 @@
     <script src="js/app.js"></script>
 </body>
 </html>
+<style>
+    body{
+        margin: 0;
+    }
+</style>
