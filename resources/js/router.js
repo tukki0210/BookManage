@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 // 必要なコンポーネントをインポート
 import HelloWorld from './components/HelloWorld'
+import BookListView from './components/Pages/BookListView'
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -12,9 +13,9 @@ export const router = createRouter({
             component: HelloWorld,
         },
         {
-            path: '/hello',
-            name: 'hello',
-            component: HelloWorld,
+            path: '/booklist',
+            name: 'booklist',
+            component: BookListView,
         }
     ]
 })
