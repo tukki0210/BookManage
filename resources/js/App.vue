@@ -3,7 +3,6 @@
     <Sidebar />
     <div>
       <router-view></router-view>
-      {{ data.message }}
     </div>
   </div>
 </template>
@@ -12,7 +11,6 @@
 import { reactive } from "vue";
 import Sidebar from "./components/Pages/Sidebar";
 
-import { getAPI } from "./functions/getapi";
 
 export default {
   name: "App",
@@ -21,7 +19,7 @@ export default {
   },
   setup() {
     const data = reactive({
-      message: "Hello Vue!!!!!!!!",
+      message: "",
     });
 
     return {

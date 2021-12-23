@@ -10,7 +10,7 @@
 
 <script>
 import { reactive } from "vue";
-import { getAPI } from "../../functions/getapi";
+import { getAPI } from "../../functions/useAPI";
 
 import BookView from "../Templates/BookView";
 
@@ -44,7 +44,7 @@ export default {
 
 .container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 li {
   list-style: none;

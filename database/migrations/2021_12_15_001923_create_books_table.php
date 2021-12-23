@@ -18,6 +18,7 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->string('price');
             $table->string('category');
+            $table->string('thumbnailURL')->nullable();
             $table->timestamps();
         });
     }

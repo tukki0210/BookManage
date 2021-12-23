@@ -28,7 +28,7 @@ export default ({
 <style lang="css">
     aside {
         background-color:#EFA00B;
-        width: 400px;
+        width: 300px;
         height: 1200px;;
     }
     li {
