@@ -1,11 +1,6 @@
 <template>
   <div class="bookView">
-    <iframe v-bind:src="data.largeImageUrl" alt="" />
-    <div class="bookCaption">
-        <h5>{{data.title}}</h5>
-        <div>{{data.publisherName}}</div>
-        <div>{{data.itemPrice}}円</div>
-    </div>
+
   </div>
 </template>
 
@@ -24,12 +19,12 @@ export default {
       largeImageUrl: "",
     });
 
-    // onMounted(() => {
+    onMounted(() => {
       data.title = props.book.title;
-      data.itemPrice = props.book.itemPrice;
+      data.itemPrice = props.book.itemPrice
       data.publisherName = props.book.publisherName
       data.largeImageUrl = props.book.largeImageUrl;
-    // });
+    });
     return {
       data,
     };

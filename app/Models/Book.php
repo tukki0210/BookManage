@@ -11,7 +11,9 @@ class Book extends Model
     
     protected $fillable = [
         'title',
-        'price',
-        'category',
+        'itemPrice',
+        'publisherName',
+        'largeImageUrl',
+        'category'
     ];
 }

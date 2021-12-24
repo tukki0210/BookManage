@@ -1,42 +1,78 @@
 <template>
-  <div>add</div>
+  <div>
+    <button v-on:click="postBook">この本を登録</button>
+    <div class="container">
+      <!-- isbnコードをkeyにする。indexでクリックしたコンポーネントを認識させる -->
+      <BookView
+        v-for="(Book, index) in data.BookList"
+        v-bind:book="Book.Item"
+        v-bind:key="Book.Item.isbn"
+        v-on:click="postBook(index)"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 import { postAPI } from "../../functions/useAPI";
+import axios from "axios";
+
+import BookView from "../Templates/BookView";
+
+import { applicationId } from "../../constants";
 
 export default {
   name: "BookAdd",
-
+  components: {
+    BookView,
+  },
   setup() {
     const data = reactive({
-      Book: {
-        title: "React 第２版",
-        price: "2500",
-        thumbnailURL: 'null',
-        category: "JavaScript",
-      },
+      BookList: {},
     });
-    const postBook = async () => {
-      console.log("post");
-      await postAPI("books", data.Book)
-        .then(console.log("OK"))
-        .catch(err => {
-            console.log('err')
-            return err.response
-        })
+
+    const getRakutenAPI = async () => {
+      const keyword = "PHP";
+      const url = `https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?format=json&keyword=${keyword}&booksGenreId=000&applicationId=${applicationId}`;
+      const result = await axios.get(url);
+      data.BookList = result.data.Items;
     };
 
-    postBook();
+    const postBook = async (index) => {
+      const book = data.BookList[index];
 
-    // onMounted(()=>{
-    //     postBook()
-    // })
+      await postAPI("books", {
+        // とりあえず楽天APIからの取得データを全部Laravelに飛ばして、利用するものはModelで指定できる。
+        ...book.Item,
+        category: "PHP",
+      })
+        .then(console.log("OK"))
+        .catch((err) => {
+          console.log("err");
+          return err.response;
+        });
+    };
+
+    onMounted(() => {
+      getRakutenAPI();
+    });
+
     return {
       data,
+      getRakutenAPI,
       postBook,
     };
   },
 };
 </script>
+
+<style>
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+li {
+  list-style: none;
+}
+</style>
