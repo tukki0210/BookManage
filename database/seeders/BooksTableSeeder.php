@@ -24,10 +24,14 @@ class BooksTableSeeder extends Seeder
                 $data = $Item['Item'];
                 Book::create([
                 "title" => $data['title'],
-                "itemPrice" => $data['itemPrice'],
                 "publisherName" => $data['publisherName'],
+                "itemPrice" => $data['itemPrice'],
+                "author" => $data['author'],
+                "isbn" => $data['isbn'],
+                "itemCaption" => $data['itemCaption'],
                 "largeImageUrl" => $data['largeImageUrl'],
-                "category" => 'JavaScript'
+                "category" => 'JavaScript',
+                "stock" => '1'
             ]);
         }
     }

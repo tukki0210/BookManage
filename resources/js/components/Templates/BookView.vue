@@ -48,8 +48,12 @@ iframe {
   height: 200px;
   margin: 10px;
   border: 1px solid blue;
+  background-color: rgba(0,100,200,0.1);
   display: flex;
   flex-direction: row;
+}
+.bookView:hover {
+    opacity: 0.6;
 }
 .bookCaption {
     padding: 5px;

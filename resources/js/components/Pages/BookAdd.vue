@@ -1,6 +1,9 @@
 <template>
   <div>
-    <button v-on:click="postBook">この本を登録</button>
+    <div style="display:flex">
+    <input type="text" v-model="data.keyword" />
+    <button v-on:click="getRakutenAPI">送信</button>
+    </div>
     <div class="container">
       <!-- isbnコードをkeyにする。indexでクリックしたコンポーネントを認識させる -->
       <BookView
@@ -14,7 +17,7 @@
 </template>
 
 <script>
-import { reactive, onMounted } from "vue";
+import { reactive, onMounted, watch } from "vue";
 import { postAPI } from "../../functions/useAPI";
 import axios from "axios";
 
@@ -29,12 +32,12 @@ export default {
   },
   setup() {
     const data = reactive({
+      keyword: "javascript",
       BookList: {},
     });
 
     const getRakutenAPI = async () => {
-      const keyword = "PHP";
-      const url = `https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?format=json&keyword=${keyword}&booksGenreId=000&applicationId=${applicationId}`;
+      const url = `https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?format=json&keyword=${data.keyword}&booksGenreId=000&applicationId=${applicationId}`;
       const result = await axios.get(url);
       data.BookList = result.data.Items;
     };
@@ -43,9 +46,9 @@ export default {
       const book = data.BookList[index];
 
       await postAPI("books", {
-        // とりあえず楽天APIからの取得データを全部Laravelに飛ばして、利用するものはModelで指定できる。
+        // とりあえず楽天APIからの取得データを全部Laravelに飛ばす。利用するものはModelで指定できる。
         ...book.Item,
-        category: "PHP",
+        category: data.keyword,
       })
         .then(console.log("OK"))
         .catch((err) => {

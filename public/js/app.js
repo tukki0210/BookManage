@@ -19643,26 +19643,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   setup: function setup() {
     var data = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
+      keyword: "javascript",
       BookList: {}
     });
 
     var getRakutenAPI = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var keyword, url, result;
+        var url, result;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                keyword = "PHP";
-                url = "https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?format=json&keyword=".concat(keyword, "&booksGenreId=000&applicationId=").concat(_constants__WEBPACK_IMPORTED_MODULE_5__.applicationId);
-                _context.next = 4;
+                url = "https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?format=json&keyword=".concat(data.keyword, "&booksGenreId=000&applicationId=").concat(_constants__WEBPACK_IMPORTED_MODULE_5__.applicationId);
+                _context.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default().get(url);
 
-              case 4:
+              case 3:
                 result = _context.sent;
                 data.BookList = result.data.Items;
 
-              case 6:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -19685,7 +19685,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 book = data.BookList[index];
                 _context2.next = 3;
                 return (0,_functions_useAPI__WEBPACK_IMPORTED_MODULE_2__.postAPI)("books", _objectSpread(_objectSpread({}, book.Item), {}, {
-                  category: "PHP"
+                  category: data.keyword
                 })).then(console.log("OK"))["catch"](function (err) {
                   console.log("err");
                   return err.response;
@@ -19923,16 +19923,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
+  style: {
+    "display": "flex"
+  }
+};
+var _hoisted_2 = {
   "class": "container"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_BookView = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("BookView");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[0] || (_cache[0] = function () {
-      return $setup.postBook && $setup.postBook.apply($setup, arguments);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.data.keyword = $event;
     })
-  }, "この本を登録"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" isbnコードをkeyにする。indexでクリックしたコンポーネントを認識させる "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.data.BookList, function (Book, index) {
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.data.keyword]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[1] || (_cache[1] = function () {
+      return $setup.getRakutenAPI && $setup.getRakutenAPI.apply($setup, arguments);
+    })
+  }, "送信")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" isbnコードをkeyにする。indexでクリックしたコンポーネントを認識させる "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.data.BookList, function (Book, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_BookView, {
       book: Book.Item,
       key: Book.Item.isbn,
@@ -20263,7 +20275,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\niframe {\n    width:200px;\n    height:200px;\n    border-style: none;\n}\n.bookView {\n  width: 400px;\n  height: 200px;\n  margin: 10px;\n  border: 1px solid blue;\n  display: flex;\n  flex-direction: row;\n}\n.bookCaption {\n    padding: 5px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\niframe {\n    width:200px;\n    height:200px;\n    border-style: none;\n}\n.bookView {\n  width: 400px;\n  height: 200px;\n  margin: 10px;\n  border: 1px solid blue;\n  background-color: rgba(0,100,200,0.1);\n  display: flex;\n  flex-direction: row;\n}\n.bookView:hover {\n    opacity: 0.6;\n}\n.bookCaption {\n    padding: 5px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
