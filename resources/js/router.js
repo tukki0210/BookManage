@@ -3,6 +3,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import HelloWorld from './components/HelloWorld'
 import BookListView from './components/Pages/BookListView'
 import BookAdd from './components/Pages/BookAdd'
+import BookDetail from './components/Pages/BookDetail'
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -19,10 +20,16 @@ export const router = createRouter({
             component: BookListView,
         },
         {
+            path: '/bookdetail/:id',
+            name: 'bookdetial',
+            componnents: BookDetail
+        },
+        {
             path: '/bookadd',
             name: 'bookadd',
             component: BookAdd,
         },
+
         
     ]
 })

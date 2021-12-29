@@ -1,9 +1,11 @@
 <template>
     <aside>
-        <li>
-            {{data.category[0]}}
-            {{data.category[1]}}
-        </li>
+        <ul>
+            <li>{{data.category[0]}}</li>
+            <li>{{data.category[1]}}</li>
+        </ul>
+        <router-link to="booklist">一覧表示</router-link>
+        <router-link to="bookadd">追加</router-link>
     </aside>
 </template>
 
