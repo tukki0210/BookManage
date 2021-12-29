@@ -1,9 +1,10 @@
 <template>
+<router-link to="" ></router-link>
   <div class="container">
   <BookView 
     v-for="Book in data.BookList"
     v-bind:book = "Book"
-    v-bind:key="Book.id"
+    v-bind:key="Book.book_id"
     />
     </div>
 </template>
@@ -27,7 +28,7 @@ export default {
     const bookData = async () => {
       const result = await getAPI("books");
       console.log(result);
-      data.BookList = result.data;
+      data.BookList = result;
       console.log(data.BookList);
     };
 

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { reactive, onMounted, watch } from "vue";
+import { reactive, onMounted } from "vue";
 import { postAPI } from "../../functions/useAPI";
 import axios from "axios";
 
@@ -39,6 +39,7 @@ export default {
     const getRakutenAPI = async () => {
       const url = `https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?format=json&keyword=${data.keyword}&booksGenreId=000&applicationId=${applicationId}`;
       const result = await axios.get(url);
+      console.log(result)
       data.BookList = result.data.Items;
     };
 
@@ -49,12 +50,8 @@ export default {
         // とりあえず楽天APIからの取得データを全部Laravelに飛ばす。利用するものはModelで指定できる。
         ...book.Item,
         category: data.keyword,
+        stock: 1
       })
-        .then(console.log("OK"))
-        .catch((err) => {
-          console.log("err");
-          return err.response;
-        });
     };
 
     onMounted(() => {

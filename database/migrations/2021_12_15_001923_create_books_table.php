@@ -18,12 +18,12 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->string('publisherName');
             $table->integer('itemPrice');
-            $table->string('author');
+            $table->string('author')->nullable();
             $table->bigInteger('isbn')->unsigned()->length(13);
             $table->text('itemCaption');
             $table->string('largeImageUrl')->nullable();
             $table->string('category');
-            $table->integer('stock')->unsigned();
+            $table->integer('stock')->unsigned()->nullable();
             $table->timestamps();
         });
     }

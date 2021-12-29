@@ -19660,9 +19660,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 result = _context.sent;
+                console.log(result);
                 data.BookList = result.data.Items;
 
-              case 5:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -19685,7 +19686,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 book = data.BookList[index];
                 _context2.next = 3;
                 return (0,_functions_useAPI__WEBPACK_IMPORTED_MODULE_2__.postAPI)("books", _objectSpread(_objectSpread({}, book.Item), {}, {
-                  category: data.keyword
+                  category: data.keyword,
+                  stock: 1
                 }));
 
               case 3:

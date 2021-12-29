@@ -2,22 +2,29 @@ import axios from 'axios'
 
 const baseurl = "http://127.0.0.1:8001/api/"
 
-export const getAPI = (URI) => {
+export const getAPI = async (URI) => {
 
-    const url = baseurl + URI;
-    console.log(url)
-    // リクエストだけは投げておいて非同期処理は利用する側で
-    const result = axios.get(url);
-    return  result
+    try {
+        const url = baseurl + URI;
+        const response = await axios.get(url);
+        console.log(response)
+        return response.data
+    } catch (error) {
+        console.error(error)
+    }
 };
 
-export const postAPI = (URI,data) => {
+export const postAPI = async (URI, data) => {
 
-    const url = baseurl + URI;
-    console.log(url)
-    // リクエストだけは投げておいて非同期処理は利用する側で
-    const result = axios.post(url,data);
-    return  result
+    try {
+        const url = baseurl + URI;
+        console.log(url)
+        const response = await axios.post(url, data);
+        console.log(response)
+        return response.data
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 export default getAPI
