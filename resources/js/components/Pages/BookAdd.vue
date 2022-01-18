@@ -1,8 +1,8 @@
 <template>
   <div>
     <div style="display:flex">
-    <input type="text" v-model="data.keyword" />
-    <button v-on:click="getRakutenAPI">送信</button>
+    <input type="text" v-model="data.keyword" @change="getRakutenAPI" />
+    <!-- <button v-on:click="getRakutenAPI">送信</button> -->
     </div>
     <div class="container">
       <!-- isbnコードをkeyにする。indexでクリックしたコンポーネントを認識させる -->

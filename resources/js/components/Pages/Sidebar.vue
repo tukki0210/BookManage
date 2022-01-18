@@ -4,8 +4,14 @@
             <li>{{data.category[0]}}</li>
             <li>{{data.category[1]}}</li>
         </ul>
-        <router-link to="booklist">一覧表示</router-link>
-        <router-link to="bookadd">追加</router-link>
+        <button class="bg-primary">
+             <router-link to="booklist">本を借りる</router-link>
+        </button>
+        <br>
+       <button>
+           <router-link to="bookadd">追加</router-link>
+       </button>
+        <div class="text-primary">test</div>
     </aside>
 </template>
 

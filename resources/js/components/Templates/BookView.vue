@@ -1,14 +1,30 @@
 <template>
-  <div class="bookView">
-    <iframe v-bind:src="data.largeImageUrl" alt="" />
-    <!-- <router-link :to='{name: "bookdetail", params: {id: 1 }}'> -->
-      <div class="bookCaption">
-        <h5>{{ data.title }}</h5>
-        <div>{{ data.publisherName }}</div>
-        <div>{{ data.itemPrice }}円</div>
-      </div>
-    <!-- </router-link> -->
-  </div>
+  <v-app>
+    <v-card class="my-1" width="500px" height="200px" color="grey lighten-2">
+      <!-- <div class="bookView"> -->
+      <v-container>
+        <v-row class="ma-0" no-gutters>
+          <v-col>
+            <v-img
+              class="mx-n2 my-auto"
+              v-bind:src="data.largeImageUrl"
+              height="180px"
+            ></v-img>
+            <!-- <iframe  alt="" /> -->
+            <!-- <router-link :to='{name: "bookdetail", params: {id: 1 }}'> -->
+          </v-col>
+          <v-col>
+            <v-card-title>{{ data.title }}</v-card-title>
+            <div>{{ data.publisherName }}</div>
+            <div>{{ data.itemPrice }}円</div>
+          </v-col>
+        </v-row>
+
+        <!-- </router-link> -->
+        <!-- </div> -->
+      </v-container>
+    </v-card>
+  </v-app>
 </template>
 
 <script>
@@ -64,4 +80,5 @@ iframe {
 .bookCaption {
   padding: 5px;
 }
+
 </style>

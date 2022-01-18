@@ -1,16 +1,22 @@
 <template>
-  <div class="layout">
-    <Sidebar />
-    <div>
-      <router-view></router-view>
+  <v-app>
+    <div class="layout">
+      <Sidebar />
+      <v-main>
+        <router-view></router-view>
+      </v-main>
     </div>
-  </div>
+          <v-sheet height="600">
+          <v-calendar
+            ref="calendar"
+          ></v-calendar>
+          </v-sheet>
+  </v-app>
 </template>
 
 <script>
 import { reactive } from "vue";
 import Sidebar from "./components/Pages/Sidebar";
-
 
 export default {
   name: "App",
@@ -34,4 +40,5 @@ export default {
   flex-direction: row;
   margin: 0;
 }
+
 </style>

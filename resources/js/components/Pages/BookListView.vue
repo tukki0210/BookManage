@@ -1,12 +1,19 @@
 <template>
-<router-link to="" ></router-link>
-  <div class="container">
-  <BookView 
-    v-for="Book in data.BookList"
-    v-bind:book = "Book"
-    v-bind:key="Book.book_id"
-    />
-    </div>
+  <v-app>
+    <v-container>
+      <v-row no-gutters>
+        <v-router>
+          <v-col
+            v-for="Book in data.BookList"
+            v-bind:key="Book.book_id"
+            cols="auto"
+          >
+            <BookView v-bind:book="Book" />
+          </v-col>
+        </v-router>
+      </v-row>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -42,12 +49,15 @@ export default {
 </script>
 
 <style>
-
-.container {
+/* .container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-}
+} */
 li {
   list-style: none;
+}
+
+.v-application__wrap {
+  min-height: 0vh !important;
 }
 </style>
