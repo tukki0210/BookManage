@@ -11,6 +11,14 @@
        <button>
            <router-link to="bookadd">追加</router-link>
        </button>
+       <br>
+        <button>
+           <router-link to="login">ログイン</router-link>
+       </button>
+       <br>
+        <button>
+           <router-link to="register">新規登録</router-link>
+       </button>
         <div class="text-primary">test</div>
     </aside>
 </template>

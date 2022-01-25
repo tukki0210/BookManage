@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LendingController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,11 @@ use App\Http\Controllers\LendingController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+// ログイン・ログアウト
+Route::post('/login',[LoginController::class, 'login']);
+Route::post('/logout',[LoginController::class, 'logout']);
+//会員登録
+Route::post('/register', [RegisterController::class, 'register']);
 
 Route::apiResource('/books',BookController::class);
 
