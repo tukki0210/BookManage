@@ -1,31 +1,63 @@
 import { createStore } from 'vuex'
-import { axios } from 'axios'
-import { baseurl } from './constants'
+import axios from 'axios'
 
 export const store = createStore({
-    state () {
+    state() {
         return {
-            user: null
+            // 認証
+            isAuth: false,
+            user: null,
+            userToken: ''
         }
     },
+    getters: {
+        isAuth(state) {
+            return state.isAuth;
+        },
+        user(state) {
+            return state.user;
+        },
+    },
     // stateの更新
-    mutation: {
-        setUser(state, value){
-            state.user = value
+    mutations: {
+        setIsAuth(state, value) {
+            state.isAuth = value;
+        },
+        setUser(state, value) {
+            state.user = value;
+        },
+        setUserToken(state, value) {
+            state.userToken = value;
         }
     },
     // actionsの中では非同期の操作を行うことができる
     actions: {
-        async login({ dispatch }, credentials) {
-            await axios.get('/sanctum/csrf-cookie')
-                .catch(err => console.log(err));
+        //会員登録
+        async register({ dispatch }, credentials) {
+            // 新規ユーザーの作成
+            await axios.post('/api/register', credentials);
+            // 新規ユーザーでログイン
+            await dispatch('login', credentials)
+        },
+
+        // ログイン
+        async login({ dispatch, commit }, credentials) {
+            const token = await axios.get('/sanctum/csrf-cookie')
+            console.log(token);
+            commit('setUserToken', token)
+
             await axios.post('/api/login', credentials)
-                .catch(err => console.log(err));
             await dispatch('me');
         },
-        async me({ commit }) {
+
+        async me({ commit, state }) {
             try {
-                const response = await axios.get('/api/user');
+                const response = await axios.get('/api/user', {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": state.userToken
+                    },
+                });
                 console.log('認証情報の表示');
                 console.log(response.data);
 

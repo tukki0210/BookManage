@@ -6,11 +6,6 @@
         <router-view></router-view>
       </v-main>
     </div>
-          <v-sheet height="600">
-          <v-calendar
-            ref="calendar"
-          ></v-calendar>
-          </v-sheet>
   </v-app>
 </template>
 
@@ -40,5 +35,4 @@ export default {
   flex-direction: row;
   margin: 0;
 }
-
 </style>
