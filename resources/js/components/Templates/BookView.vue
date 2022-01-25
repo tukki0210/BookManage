@@ -80,5 +80,7 @@ iframe {
 .bookCaption {
   padding: 5px;
 }
-
+.v-application__wrap {
+  min-height: 0vh !important;
+}
 </style>

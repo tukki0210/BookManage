@@ -14,6 +14,8 @@
     "roboto-fontface": "*",
     "vuetify": "^3.0.0-alpha.0",
     "vuetifyjs-mix-extension": "^0.0.20",
+    "vuex": "^4.0.2",
+    "vuex-persistedstate": "^4.1.0",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {

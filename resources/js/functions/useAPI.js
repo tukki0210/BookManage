@@ -1,6 +1,6 @@
 import axios from 'axios'
+import { baseurl } from '../constants'
 
-const baseurl = "http://127.0.0.1:8001/api/"
 
 export const getAPI = async (URI) => {
 
