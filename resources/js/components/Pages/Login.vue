@@ -2,74 +2,77 @@
   <div>
     <div class="container d-flex justify-content-center">
       <!-- ▼Login Form -->
-        <div class="row">
-          <div class="col-sm-8 pb-3">
-            <div class="card" style="width: 100%">
-              <div class="card-body">
-                <h5 class="card-title">ログイン</h5>
-                <p>登録済みの方はこちらからログインしてください</p>
-                <form @submit.prevent="loginSubmit">
-                  <div class="row mb-3">
-                    <label for="login-email" class="col-sm-3 col-form-label">
-                      メールアドレス
-                      <span class="text-light bg-danger px-1 small">必須</span>
-                    </label>
-                    <div class="col-sm-9">
-                      <input
-                        type="text"
-                        v-model="data.loginForm.email"
-                        id="login-email"
-                        class="form-control"
-                        v-bind:class="{ errorOutline: data.errors.email }"
-                      />
-                      <span v-show="data.errors.email" class="text-danger">
-                        {{ data.errors.email }}
-                      </span>
-                    </div>
+      <div class="row">
+        <div class="col-sm-8 pb-3">
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">ログイン</h5>
+              <p>登録済みの方はこちらからログインしてください</p>
+              <form @submit.prevent="loginSubmit">
+                <div class="row mb-3">
+                  <label for="login-email" class="col-sm-3 col-form-label">
+                    メールアドレス
+                    <span class="text-light bg-danger px-1 small">必須</span>
+                  </label>
+                  <div class="col-sm-9">
+                    <input
+                      type="text"
+                      v-model="data.loginForm.email"
+                      id="login-email"
+                      class="form-control"
+                      v-bind:class="{ errorOutline: data.errors.email }"
+                    />
+                    <span v-show="data.errors.email" class="text-danger">
+                      {{ data.errors.email }}
+                    </span>
                   </div>
-                  <div class="row mb-3">
-                    <label for="login-password" class="col-sm-3 col-form-label">
-                      パスワード
-                      <span class="text-light bg-danger px-1 small">必須</span>
-                    </label>
-                    <div class="col-sm-9">
-                      <input
-                        type="password"
-                        v-model="data.loginForm.password"
-                        id="login-password"
-                        class="form-control"
-                        v-bind:class="{ errorOutline: data.errors.password }"
-                      />
-                      <span v-show="data.errors.password" class="text-danger">
-                        {{ data.errors.password }}
-                      </span>
-                    </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="login-password" class="col-sm-3 col-form-label">
+                    パスワード
+                    <span class="text-light bg-danger px-1 small">必須</span>
+                  </label>
+                  <div class="col-sm-9">
+                    <input
+                      type="password"
+                      v-model="data.loginForm.password"
+                      id="login-password"
+                      class="form-control"
+                      v-bind:class="{ errorOutline: data.errors.password }"
+                    />
+                    <span v-show="data.errors.password" class="text-danger">
+                      {{ data.errors.password }}
+                    </span>
                   </div>
-                  <div class="d-flex justify-content-center">
-                    <button
-                      type="submit"
-                      class="btn btn-info p-2 m-2 d-flex align-items-center"
-                      style="width: 9rem; height: 3rem"
-                    >
-                      <span class="flex-grow-1">ログイン</span>
-                    </button>
-                  </div>
-                </form>
-              </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button
+                    type="submit"
+                    class="btn btn-info p-2 m-2 d-flex align-items-center"
+                    style="width: 9rem; height: 3rem"
+                  >
+                    <span class="flex-grow-1">ログイン</span>
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-      <!-- ▲Login Form -->
+    </div>
+    <!-- ▲Login Form -->
   </div>
 </template>
 <script>
 import { reactive } from "vue";
 import { useStore } from "vuex";
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
   setup() {
     const store = useStore();
+
+    const router = useRouter()
 
     const data = reactive({
       loginForm: {
@@ -85,8 +88,11 @@ export default {
     });
 
     const loginSubmit = async () => {
-        console.log(data.loginForm)
+      console.log('ログイン')
+      console.log(data.loginForm);
       await store.dispatch("login", data.loginForm);
+      // 現在のhistoryを置換(上書き)して移動する
+      router.replace({ name: "booklist" });
     };
 
     return {

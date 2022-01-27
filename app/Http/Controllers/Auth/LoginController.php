@@ -10,13 +10,22 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
+        $result = false;
+
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
 
         if (Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Login successful'], 200);
+            $reult = true;
+            $user = \Auth::user();
+            // トークン破棄
+            $user->tokens()->where('name', 'userauth')->delete();
+            // トークン作成
+            $user->token = $user->createToken('userauth')->plainTextToken;
+
+            return response()->json(['user'=>$user]);
         }
 
         return response()->json(['message' => 'User not found'], 422);

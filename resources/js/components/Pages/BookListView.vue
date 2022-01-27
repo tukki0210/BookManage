@@ -9,8 +9,9 @@
 </template>
 
 <script>
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 import { getAPI } from "../../functions/useAPI";
+import { useStore } from "vuex";
 
 import BookView from "../Templates/BookView";
 
@@ -24,16 +25,23 @@ export default {
       BookList: [],
     });
 
+    const store = useStore();
+
+    const userToken = store.state.user.token;
+    console.log(userToken)
+
     const bookData = async () => {
-      const result = await getAPI("books");
+      const result = await getAPI("books", userToken);
       console.log(result);
       data.BookList = result;
       console.log(data.BookList);
     };
 
     bookData();
+
     return {
       data,
+      userToken,
       bookData,
     };
   },

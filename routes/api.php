@@ -28,6 +28,10 @@ Route::post('/logout',[LoginController::class, 'logout']);
 //会員登録
 Route::post('/register', [RegisterController::class, 'register']);
 
-Route::apiResource('/books',BookController::class);
+// 認証済みでないと許可しない
+Route::group(["middleware" => ["auth:sanctum"]], function () {
 
-Route::apiResource('/Lending',LendingController::class);
+    Route::apiResource('/books',BookController::class);
+
+    Route::apiResource('/Lending',LendingController::class);
+});

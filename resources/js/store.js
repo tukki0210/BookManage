@@ -1,14 +1,19 @@
 import { createStore } from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 import axios from 'axios'
 
 export const store = createStore({
-    state() {
-        return {
-            // 認証
-            isAuth: false,
-            user: null,
-            userToken: ''
-        }
+    state: {
+
+        // 認証
+        isAuth: false,
+        user: {
+            id: '',
+            name: '',
+            email: '',
+            token: ''
+        },
+
     },
     getters: {
         isAuth(state) {
@@ -24,11 +29,8 @@ export const store = createStore({
             state.isAuth = value;
         },
         setUser(state, value) {
-            state.user = value;
+            state.user = value.user;
         },
-        setUserToken(state, value) {
-            state.userToken = value;
-        }
     },
     // actionsの中では非同期の操作を行うことができる
     actions: {
@@ -42,31 +44,36 @@ export const store = createStore({
 
         // ログイン
         async login({ dispatch, commit }, credentials) {
-            const token = await axios.get('/sanctum/csrf-cookie')
-            console.log(token);
-            commit('setUserToken', token)
+            // SanctumのSPA認証
 
-            await axios.post('/api/login', credentials)
+            // アプリケーションのCSRF保護を初期化
+            await axios.get('/sanctum/csrf-cookie')
+            // ログインしてユーザー情報を受け取る
+            const response = await axios.post('/api/login', credentials)
+
+            // ユーザートークンをstateに設定
+            commit('setUser', response.data)
+            // ログイン成功後はLaravelがクライアントにセッションクッキーを発行する
             await dispatch('me');
         },
 
         async me({ commit, state }) {
             try {
+                console.log(state.user.token)
                 const response = await axios.get('/api/user', {
                     headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": state.userToken
-                    },
+                        Authorization: `Bearer ${state.user.token}`,
+                    }
                 });
                 console.log('認証情報の表示');
                 console.log(response.data);
 
                 // 認証情報を設定
                 commit('setIsAuth', true);
-                commit('setUser', response.data);
-            } catch (error) {
+                // commit('setUser', response.data);
+            } catch (err) {
                 console.log('エラー情報の表示');
-                console.log(error);
+                console.log(err);
 
                 // 認証情報を初期化
                 commit('setIsAuth', false);
@@ -93,5 +100,11 @@ export const store = createStore({
                 commit('setUser', null);
             }
         },
-    }
+    },
+    plugins: [createPersistedState(
+        {
+            key: 'booksApp',
+            storage: window.localStorage
+        }
+    )]
 })

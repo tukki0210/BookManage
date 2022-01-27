@@ -2,11 +2,15 @@ import axios from 'axios'
 import { baseurl } from '../constants'
 
 
-export const getAPI = async (URI) => {
+export const getAPI = async (URI,token = '') => {
 
     try {
         const url = baseurl + URI;
-        const response = await axios.get(url);
+        const response = await axios.get(url,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
         console.log(response)
         return response.data
     } catch (error) {
