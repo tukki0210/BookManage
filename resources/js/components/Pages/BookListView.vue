@@ -25,13 +25,14 @@ export default {
       BookList: [],
     });
 
-    const store = useStore();
+    // const store = useStore();
 
-    const userToken = store.state.user.token;
-    console.log(userToken)
+    // const userToken = store.state.user.token;
+    // console.log(userToken)
 
     const bookData = async () => {
-      const result = await getAPI("books", userToken);
+      const result = await getAPI("books");
+      // const result = await getAPI("books", userToken);
       console.log(result);
       data.BookList = result;
       console.log(data.BookList);
@@ -41,7 +42,7 @@ export default {
 
     return {
       data,
-      userToken,
+      // userToken,
       bookData,
     };
   },

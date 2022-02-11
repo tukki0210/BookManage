@@ -55,16 +55,20 @@ export const store = createStore({
             commit('setUser', response.data)
             // ログイン成功後はLaravelがクライアントにセッションクッキーを発行する
             await dispatch('me');
+            // 認証情報を設定
+            // commit('setIsAuth', true);
+            // commit('setUser', response.data);
         },
 
         async me({ commit, state }) {
             try {
-                console.log(state.user.token)
-                const response = await axios.get('/api/user', {
-                    headers: {
-                        Authorization: `Bearer ${state.user.token}`,
-                    }
-                });
+                // console.log(state.user.token)
+                // const response = await axios.get('/api/user', {
+                //     headers: {
+                //         Authorization: `Bearer ${state.user.token}`,
+                //     }
+                // });
+                const response = await axios.get('/api/user');
                 console.log('認証情報の表示');
                 console.log(response.data);
 
