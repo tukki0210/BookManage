@@ -30,20 +30,20 @@ export default {
     // const userToken = store.state.user.token;
     // console.log(userToken)
 
-    const bookData = async () => {
+    (async () => {
       const result = await getAPI("books");
       // const result = await getAPI("books", userToken);
       console.log(result);
       data.BookList = result;
       console.log(data.BookList);
-    };
+    })();
 
-    bookData();
+    // bookData();
 
     return {
       data,
       // userToken,
-      bookData,
+      // bookData,
     };
   },
 };

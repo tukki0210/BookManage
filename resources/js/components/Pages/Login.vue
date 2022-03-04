@@ -1,92 +1,33 @@
 <template>
   <!-- <div> -->
-    <v-app>
-      <v-card width="400px" class="mx-auto mt-5">
-        <v-card-title>
-          <h3 class="display-1">ログイン</h3>
-        </v-card-title>
-      </v-card>
-      <v-card>
-        <v-form>
-          <v-text-field label="ユーザー名" />
-          <v-text-field label="パスワード" />
-          <v-card-action>
-            <v-btn>ログイン</v-btn>
-          </v-card-action>
-        </v-form>
-      </v-card>
-    </v-app>
-<!-- 
-    <div class="container d-flex justify-content-center">
-      <!-- ▼Login Form -->
-      <div class="row">
-        <div class="col-sm-8 pb-3">
-          <div class="card" style="width: 100%">
-            <div class="card-body">
-              <h5 class="card-title">ログイン</h5>
-              <form @submit.prevent="loginSubmit">
-                <div class="row mb-3">
-                  <label for="login-email" class="col-sm-3 col-form-label">
-                    メールアドレス
-                  </label>
-                  <div class="col-sm-9">
-                    <input
-                      type="text"
-                      v-model="data.loginForm.email"
-                      id="login-email"
-                      class="form-control"
-                      v-bind:class="{ errorOutline: data.errors.email }"
-                    />
-                    <span v-show="data.errors.email" class="text-danger">
-                      {{ data.errors.email }}
-                    </span>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="login-password" class="col-sm-3 col-form-label">
-                    パスワード
-                  </label>
-                  <div class="col-sm-9">
-                    <input
-                      type="password"
-                      v-model="data.loginForm.password"
-                      id="login-password"
-                      class="form-control"
-                      v-bind:class="{ errorOutline: data.errors.password }"
-                    />
-                    <span v-show="data.errors.password" class="text-danger">
-                      {{ data.errors.password }}
-                    </span>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <button
-                    type="submit"
-                    class="btn btn-info p-2 m-2 d-flex align-items-center"
-                    style="width: 9rem; height: 3rem"
-                  >
-                    <span class="flex-grow-1">ログイン</span>
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- ▲Login Form -->
-  </div> -->
+  <v-app>
+    <v-card width="400px" class="mx-auto mt-5">
+      <v-card-title>
+        <h3 class="display-1">ログイン</h3>
+      </v-card-title>
+      <v-card-text>
+      <v-form>
+        <v-text-field type="email" label="メールアドレス" v-model="data.loginForm.email" />
+        <v-text-field type="password" label="パスワード" v-model="data.loginForm.password" />
+        <v-card-action>
+          <v-btn class="info" v-on:click="loginSubmit" >ログイン</v-btn>
+        </v-card-action>
+      </v-form>
+      </v-card-text>
+    </v-card>
+  </v-app>
 </template>
+
 <script>
 import { reactive } from "vue";
 import { useStore } from "vuex";
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
     const store = useStore();
 
-    const router = useRouter()
+    const router = useRouter();
 
     const data = reactive({
       loginForm: {
@@ -102,10 +43,10 @@ export default {
     });
 
     const loginSubmit = async () => {
-      console.log('ログイン')
+      console.log("ログイン");
       console.log(data.loginForm);
       await store.dispatch("login", data.loginForm);
-      console.log("ログイン完了")
+      console.log("ログイン完了");
       // 現在のhistoryを置換(上書き)して移動する
       router.replace({ name: "booklist" });
     };

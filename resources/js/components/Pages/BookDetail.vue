@@ -1,14 +1,15 @@
 <template>
-
-    <div class="bookView">
-      <iframe v-bind:src="data.largeImageUrl" alt="" />
+<v-app>
+  <v-card width="400px" height="200px" class="mx-10">
+    <v-img></v-img>
+    <iframe v-bind:src="data.largeImageUrl" alt="" />
       <div class="bookCaption">
         <h5>{{ data.title }}</h5>
         <div>{{ data.publisherName }}</div>
         <div>{{ data.itemPrice }}円</div>
       </div>
-    </div>
-
+  </v-card>
+</v-app>
 </template>
 
 <script>
