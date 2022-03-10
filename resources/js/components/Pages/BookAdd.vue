@@ -37,7 +37,8 @@ export default {
     });
 
     const getRakutenAPI = async () => {
-      const url = `https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?format=json&keyword=${data.keyword}&booksGenreId=000&applicationId=${applicationId}`;
+      // const url = `https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?format=json&keyword=${data.keyword}&booksGenreId=000&applicationId=${applicationId}`;
+      const url = 'api/rakutenAPI'
       const result = await axios.get(url);
       console.log(result)
       data.BookList = result.data.Items;

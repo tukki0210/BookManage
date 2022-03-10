@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LendingController;
+use App\Http\Controllers\RakutenAPIController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -35,4 +36,6 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
     Route::apiResource('/books',BookController::class);
 
     Route::apiResource('/Lending',LendingController::class);
+
+    Route::get('/rakutenAPI',RakutenAPIController::class);
 });
